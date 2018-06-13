@@ -1,15 +1,13 @@
-import sqlite3
-from PyQt5.QtWidgets import QWidget, QApplication, QMessageBox, QInputDialog
 from PyQt5.Qt import Qt
 from PyQt5.QtGui import QPixmap, QIcon
 from sys import exit, argv
-from subprocess import call
 from pathlib import Path
-from setting_GUI import *
 from os import getcwd
+from setting_GUI.database.run_datebase import Database
+from setting_GUI import *
 
 
-class Inicio(QWidget):
+class Inicio(QtWidgets.QWidget):
 
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -43,18 +41,15 @@ class Inicio(QWidget):
             event.accept()
 
     def eliminarCuenta(self):
-        conexion = sqlite3.connect("login.db")
-        cursor = conexion.cursor()
-        opcion = QMessageBox().information(self, "Melnis", "¿Estas seguro que quieres eliminar esta cuenta?",
-                                           QMessageBox.Yes, QMessageBox.No)
+        opcion = QtWidgets.QMessageBox().information(self, "Melnis", "¿Estas seguro que quieres eliminar esta cuenta?",
+                                           QtWidgets.QMessageBox.Yes, QtWidgets.QMessageBox.No)
+
         if opcion == 16384:
-            cursor.execute("DELETE FROM login WHERE Email=:email", {"email": self.ui_3.inputEmail.text()})
+            Database().eliminar_cuenta(self.ui_3.inputEmail.text())
             self.close()
             self.ventanaInicio = Iniciar()
             self.ventanaInicio.show()
             del self
-        conexion.commit()
-        conexion.close()
 
     def cerrarSesion(self):
         self.close()
@@ -63,59 +58,43 @@ class Inicio(QWidget):
         del self
 
     def cambiarEmail(self):
-        conexion = sqlite3.connect("login.db")
-        email = QInputDialog().getText(self, "Milnes", "Introduzca su nuevo Email: ")
+        email = QtWidgets.QInputDialog().getText(self, "Milnes", "Introduzca su nuevo Email: ")
+
         if email[1]:
-            cursor = conexion.cursor()
-            cursor.execute("UPDATE login SET Email=? Where Email=? ", (email[0], self.ui_3.inputEmail.text()))
+            Database().cambiar_email(self.ui_3.inputEmail.text(), email[0])
             self.ui_3.inputEmail.setText(email[0])
-        conexion.commit()
-        conexion.close()
 
     def cambiarUsuario(self):
-        conexion = sqlite3.connect("login.db")
-        usuario = QInputDialog().getText(self, "Milnes", "Introduzca su nuevo Usuario: ")
+        usuario = QtWidgets.QInputDialog().getText(self, "Milnes", "Introduzca su nuevo Usuario: ")
+
         if usuario[1]:
-            cursor = conexion.cursor()
-            cursor.execute("UPDATE login SET Usuario=? WHERE Usuario=? ", (usuario[0], self.ui_3.inputNombre.text()))
+            Database().cambiar_usuario(self.ui_3.inputNombre.text(), usuario[0])
             self.ui_3.inputNombre.setText(usuario[0])
             self.ui_3.inputUsuarioMarco.setText(usuario[0])
-        conexion.commit()
-        conexion.close()
 
     def cambiarPassword(self):
-        conexion = sqlite3.connect("login.db")
-        password = QInputDialog().getText(self, "Milnes", "Introduzca su nueva Contraseña: ")
+        password = QtWidgets.QInputDialog().getText(self, "Milnes", "Introduzca su nueva Contraseña: ")
+
         if password[1]:
-            cursor = conexion.cursor()
-            cursor.execute("UPDATE login SET Password=? Where Password=? ", (password[0], self.ui_3.inputPassword.text()))
+            Database().cambiar_password(self.ui_3.inputPassword.text(), password[0])
             self.ui_3.inputPassword.setText(password[0])
-        conexion.commit()
-        conexion.close()
 
     def cambiarApellidos(self):
-        conexion = sqlite3.connect("login.db")
-        apellidos = QInputDialog().getText(self, "Milnes", "Introduzca sus Nuevos Apellidos: ")
+        apellidos = QtWidgets.QInputDialog().getText(self, "Milnes", "Introduzca sus Nuevos Apellidos: ")
+
         if apellidos[1]:
-            cursor = conexion.cursor()
-            cursor.execute("UPDATE login SET Apellidos=? Where Apellidos=? ", (apellidos[0],
-                                                                               self.ui_3.inputApellidos.text()))
+            Database().cambiar_apellidos(self.ui_3.inputApellidos.text(), apellidos[0])
             self.ui_3.inputApellidos.setText(apellidos[0])
-        conexion.commit()
-        conexion.close()
 
     def cambiarEdad(self):
-        conexion = sqlite3.connect("login.db")
-        edad = QInputDialog().getInt(self, "Milnes", "Introduzca su nueva Edad: ")
+        edad = QtWidgets.QInputDialog().getInt(self, "Milnes", "Introduzca su nueva Edad: ")
+
         if edad[1]:
-            cursor = conexion.cursor()
-            cursor.execute("UPDATE login SET Edad=? Where Edad=? ", (edad[0], self.ui_3.inputEdad.text()))
+            Database.cambiar_edad(self.ui_3.inputEdad.text(), edad[0])
             self.ui_3.inputEdad.setText(str(edad[0]))
-        conexion.commit()
-        conexion.close()
 
 
-class Crear(QWidget):
+class Crear(QtWidgets.QWidget):
 
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -153,7 +132,7 @@ class Crear(QWidget):
                 edad = int(self.ui.inputedad.text())
 
             except ValueError:
-                QMessageBox.critical(self, "Milnes", "Error No es Un Numero")
+                QtWidgets.QMessageBox.critical(self, "Milnes", "Error No es Un Numero")
                 self.ui.inputedad.setText("0")
             else:
                 if edad != 0:
@@ -165,7 +144,7 @@ class Crear(QWidget):
                         self.ventana1.show()
                         del self
         else:
-            QMessageBox.critical(self, "Milnes", " Campos sin Rellenar")
+            QtWidgets.QMessageBox.critical(self, "Milnes", " Campos sin Rellenar")
 
     def iniciar(self):
         self.ventana1 = Iniciar()
@@ -174,7 +153,7 @@ class Crear(QWidget):
         del self
 
 
-class Iniciar(QWidget):
+class Iniciar(QtWidgets.QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.ui = Ui_Iniciar_Sesion()
@@ -207,7 +186,7 @@ class Iniciar(QWidget):
         if email != "" and password != "":
             comprobar = login(email, password)
             if not comprobar[0]:
-                QMessageBox.warning(self, "Milnes", "Email o Contraseña Incorrectas")
+                QtWidgets.QMessageBox.warning(self, "Milnes", "Email o Contraseña Incorrectas")
             else:
                 self.ui3 = Inicio()
                 self.ui3.ui_3.inputNombre.setText(f"{comprobar[1][2]}")
@@ -221,7 +200,7 @@ class Iniciar(QWidget):
                 del self
 
         else:
-            QMessageBox.critical(self, "Milnes", " Campos sin Rellenar")
+            QtWidgets.QMessageBox.critical(self, "Milnes", " Campos sin Rellenar")
 
     def crear(self):
         self.ventana2 = Crear()
@@ -231,16 +210,17 @@ class Iniciar(QWidget):
 
 
 def main():
-    cmd = QApplication(argv)
+    cmd = QtWidgets.QApplication(argv)
 
     base_de_datos = Path("login.db")
 
     clase1 = Iniciar()
 
     if not base_de_datos.exists():
-        QMessageBox.information(QWidget(), "Milnes", "\U0001f504" + " Configurando todo...")
-        call("python setting_GUI/database/run_datebase.py")
-        QMessageBox.information(QWidget(), "Milnes", "\u2714" + " Listo")
+        QtWidgets.QMessageBox.information(QtWidgets.QWidget(), "Milnes", "\U0001f504" + " Configurando todo...")
+        from setting_GUI.database import Database
+        Database.create()
+        QtWidgets.QMessageBox.information(QtWidgets.QWidget(), "Milnes", "\u2714" + " Listo")
 
     clase1.show()
     exit(cmd.exec_())

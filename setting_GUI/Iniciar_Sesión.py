@@ -1,27 +1,18 @@
-import sqlite3
+
+from setting_GUI.database.run_datebase import Database
 
 
 def login(email: str, password: str):
 
-    root = sqlite3.connect("login.db")
-    cursor = root.cursor()
-
     autentificado: bool = False
 
-    cursor.execute("SELECT Email, Password FROM login")
-    usuarios = cursor.fetchmany(-1)
+    usuarios = Database.usuarios()
 
     for usuario in usuarios:
         if usuario[0] == email and usuario[1] == password:
             autentificado = True
-            cursor.execute("SELECT * FROM login WHERE Email='{}'".format(usuario[0]))
-            e = cursor.fetchone()
-            root.commit()
-            root.close()
-            return True, e
+            e = Database.buscar_por_email(email)
+            return autentificado, e
 
     if not autentificado:
-        return [False]
-
-    root.commit()
-    root.close()
+        return [autentificado]
