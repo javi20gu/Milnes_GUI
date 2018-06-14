@@ -6,13 +6,9 @@ class Sql:
 
     @classmethod
     def query(cls, *args: str):
-        conexion = sqlite3.connect("login.db")
+        conexion = sqlite3.connect("login.db", timeout=10*1000)
         cursor = conexion.cursor()
-        try:
-            cursor.execute(*args)
-        except Exception as e:
-            QMessageBox().critical(QWidget(), "Milnes", f"Error en Sql.query() {e}")
-
+        cursor.execute(*args)
         conexion.commit()
 
         return cursor
@@ -58,13 +54,22 @@ class Database:
 
     @classmethod
     def cambiar_email(cls, antiguo_email: str, nuevo_email: str):
-        Sql.query("UPDATE login SET Email=? Where Email=? ", (nuevo_email, antiguo_email))
-
+        try:
+            Sql.query("UPDATE login SET Email=? Where Email=? ", (nuevo_email, antiguo_email))
+            return True
+        except sqlite3.IntegrityError as a:
+            QMessageBox.warning(QWidget(), "Milnes", f"Email ya existente: {nuevo_email}")
+            return False
     @classmethod
     def eliminar_cuenta(cls, email: str):
         Sql.query("DELETE FROM login WHERE Email=:email", {"email": email})
 
     def crear(self, usuario: str, apellidos: str, edad: int, email: str, password: str):
-        Sql.query("INSERT INTO login (usuario, apellidos, edad, email, password) "
+        try:
+            Sql.query("INSERT INTO login (usuario, apellidos, edad, email, password) "
                   "VALUES('{}', '{}','{}','{}','{}')".format(usuario, apellidos,
                                                              edad, email, password))
+            return True
+        except sqlite3.IntegrityError:
+            QMessageBox.warning(QWidget(), "Milnes", f"Email ya existente: {email}")
+            return False

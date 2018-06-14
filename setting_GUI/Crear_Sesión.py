@@ -4,12 +4,10 @@ from setting_GUI.database.run_datebase import Database
 
 
 def crear_sesion(usuario: str, apellidos: str, edad: int, email: str, password: str):
-    try:
+        noproblema = Database().crear(usuario, apellidos, edad, email, password)
+        if noproblema:
+            QMessageBox.information(QWidget(), "Milnes", f"Su Cuenta ha sido registrada: {email}")
+            return True
+        else:
+            return False
 
-        Database().crear(usuario, apellidos, edad, email, password)
-        QMessageBox.information(QWidget(), "Milnes", f"Su Cuenta ha sido registrada: {email}")
-        return True
-
-    except sqlite3.IntegrityError:
-        QMessageBox.warning(QWidget(), "Milnes", f"Email ya existente: {email}")
-        return False
