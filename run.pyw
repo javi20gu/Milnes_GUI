@@ -42,7 +42,7 @@ class Inicio(QtWidgets.QWidget):
 
     def eliminarCuenta(self):
         opcion = QtWidgets.QMessageBox().information(self, "Melnis", "¿Estas seguro que quieres eliminar esta cuenta?",
-                                           QtWidgets.QMessageBox.Yes, QtWidgets.QMessageBox.No)
+                                                     QtWidgets.QMessageBox.Yes, QtWidgets.QMessageBox.No)
 
         if opcion == 16384:
             Database().eliminar_cuenta(self.ui_3.inputEmail.text())
@@ -61,8 +61,9 @@ class Inicio(QtWidgets.QWidget):
         email = QtWidgets.QInputDialog().getText(self, "Milnes", "Introduzca su nuevo Email: ")
 
         if email[1]:
-            Database().cambiar_email(self.ui_3.inputEmail.text(), email[0])
-            self.ui_3.inputEmail.setText(email[0])
+            noproblema = Database().cambiar_email(self.ui_3.inputEmail.text(), email[0])
+            if noproblema:
+                self.ui_3.inputEmail.setText(email[0])
 
     def cambiarUsuario(self):
         usuario = QtWidgets.QInputDialog().getText(self, "Milnes", "Introduzca su nuevo Usuario: ")
