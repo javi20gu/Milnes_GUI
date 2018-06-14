@@ -1,7 +1,7 @@
 # Milnes_GUI
 Aplicación hecha con Python 3 con Interfaz Gráfica
 
-### Versión: 1.0.3
+### Versión: 1.2.1
 
 ### Para Empezar:
 - Abrir run.exe.lnk acceso directo o si tienes instalado Python 3 abrir el run.pyw.
