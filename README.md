@@ -7,4 +7,4 @@ Aplicación hecha con Python 3 con Interfaz Gráfica
 - Abrir run.exe.lnk acceso directo o si tienes instalado Python 3 abrir el run.pyw.
  
 ## Si te aparece algún fallo notifícamelo para arreglarlo.
-#### Version Requerida >= 3.6
+#### Versión Requerida >= 3.6
