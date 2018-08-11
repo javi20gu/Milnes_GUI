@@ -1,5 +1,6 @@
 # Milnes_GUI
-Aplicación hecha con Python 3 con Interfaz Gráfica
+Aplicación de Sesión hecha con Python 3 con Interfaz Gráfica, creado para mostrar el potencial de PyQt5, incluye una base de datos(local).
+
 
 ### Versión: 1.2.1
 
