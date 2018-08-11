@@ -5,7 +5,7 @@ Aplicación de Sesión hecha con Python 3 con Interfaz Gráfica, creado para mos
 ### Versión: 1.2.1
 
 ### Para Empezar:
-- Abrir run.exe.lnk acceso directo o si tienes instalado Python 3 abrir el run.pyw.
+- Abrir .\Milnes_GUI-master\dist\run.exe o si tienes instalado Python 3 abrir el run.pyw.
  
 ## Si te aparece algún fallo notifícamelo para arreglarlo.
 #### Versión Requerida >= 3.6
