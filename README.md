@@ -8,7 +8,6 @@ Aplicación de Sesión hecha con Python 3 con Interfaz Gráfica, creado para mos
 
 ### Para Empezar:
 - Abrir .\Milnes_GUI-master\dist\run.exe o si tienes instalado Python 3 abrir el run.pyw.
- ### Versión: 1.2.1
+ ### Versión: 1.3.0
 
 ## Si te aparece algún fallo notifícamelo para arreglarlo.
-#### Versión Requerida >= python 3.6
