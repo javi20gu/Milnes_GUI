@@ -3,6 +3,7 @@ from PyQt5.QtGui import QPixmap, QIcon
 from sys import exit, argv
 from pathlib import Path
 from os import getcwd
+
 from setting_GUI.database.run_datebase import Database
 from setting_GUI import *
 
@@ -21,14 +22,14 @@ class Inicio(QtWidgets.QWidget):
         self.ui_3.botonEdad.clicked.connect(self.cambiarEdad)
         self.ui_3.botonCerrarSesion.clicked.connect(self.cerrarSesion)
         self.ui_3.botonSalir.clicked.connect(self.eliminarCuenta)
-        self.ui_3.flecha1.setPixmap(QPixmap(f"{getcwd()}/setting_GUI/flecha.png"))
-        self.ui_3.flecha2.setPixmap(QPixmap(f"{getcwd()}/setting_GUI/flecha.png"))
-        self.ui_3.flecha3.setPixmap(QPixmap(f"{getcwd()}/setting_GUI/flecha.png"))
-        self.ui_3.flecha4.setPixmap(QPixmap(f"{getcwd()}/setting_GUI/flecha.png"))
-        self.ui_3.flecha5.setPixmap(QPixmap(f"{getcwd()}/setting_GUI/flecha.png"))
-        self.ui_3.botonSalir.setIcon(QIcon(f"{getcwd()}/setting_GUI/borrar.png"))
-        self.ui_3.printIconoUsuario.setPixmap(QPixmap(f"{getcwd()}/setting_GUI/usuario.png"))
-        self.ui_3.botonCerrarSesion.setIcon(QIcon(f"{getcwd()}/setting_GUI/salida.png"))
+        self.ui_3.flecha1.setPixmap(QPixmap("{}/setting_GUI/flecha.png".format(getcwd())))
+        self.ui_3.flecha2.setPixmap(QPixmap("{}/setting_GUI/flecha.png".format(getcwd())))
+        self.ui_3.flecha3.setPixmap(QPixmap("{}/setting_GUI/flecha.png".format(getcwd())))
+        self.ui_3.flecha4.setPixmap(QPixmap("{}/setting_GUI/flecha.png".format(getcwd())))
+        self.ui_3.flecha5.setPixmap(QPixmap("{}/setting_GUI/flecha.png".format(getcwd())))
+        self.ui_3.botonSalir.setIcon(QIcon("{}/setting_GUI/borrar.png".format(getcwd())))
+        self.ui_3.printIconoUsuario.setPixmap(QPixmap("{}/setting_GUI/usuario.png".format(getcwd())))
+        self.ui_3.botonCerrarSesion.setIcon(QIcon("{}/setting_GUI/salida.png".format(getcwd())))
 
     def mousePressEvent(self, event):
         if event.button() == Qt.LeftButton:
@@ -102,8 +103,8 @@ class Crear(QtWidgets.QWidget):
         self.ui = Ui_Crear_Sesion()
         self.ui.setupUi(self)
         self.setWindowFlags((Qt.FramelessWindowHint))
-        self.ui.imagen.setPixmap(QPixmap(f"{getcwd()}/setting_GUI/crear.jpg"))
-        self.ui.botonSalir.setIcon(QIcon(f"{getcwd()}/setting_GUI/salir.ico"))
+        self.ui.imagen.setPixmap(QPixmap("{}/setting_GUI/crear.jpg".format(getcwd())))
+        self.ui.botonSalir.setIcon(QIcon("{}/setting_GUI/salir.ico".format(getcwd())))
         self.ui.boton_iniciar_sesion.clicked.connect(self.iniciar)
         self.ui.botosiguiente.clicked.connect(self.registrar)
         self.ui.botonSalir.clicked.connect(self.salirApp)
@@ -160,8 +161,8 @@ class Iniciar(QtWidgets.QWidget):
         self.ui = Ui_Iniciar_Sesion()
         self.ui.setupUi(self)
         self.setWindowFlags(Qt.FramelessWindowHint)
-        self.ui.imagen.setPixmap(QPixmap(f"{getcwd()}/setting_GUI/fondoiniciar.jpg"))
-        self.ui.botonSalir.setIcon(QIcon(f"{getcwd()}/setting_GUI/salir.ico"))
+        self.ui.imagen.setPixmap(QPixmap("{}/setting_GUI/fondoiniciar.jpg".format(getcwd())))
+        self.ui.botonSalir.setIcon(QIcon("{}/setting_GUI/salir.ico".format(getcwd())))
         self.ui.botoncrearsesion.clicked.connect(self.crear)
         self.ui.botonsiguiente.clicked.connect(self.iniciarsesion)
         self.ui.botonSalir.clicked.connect(self.salirApp)
@@ -190,12 +191,12 @@ class Iniciar(QtWidgets.QWidget):
                 QtWidgets.QMessageBox.warning(self, "Milnes", "Email o Contraseña Incorrectas")
             else:
                 self.ui3 = Inicio()
-                self.ui3.ui_3.inputNombre.setText(f"{comprobar[1][2]}")
-                self.ui3.ui_3.inputApellidos.setText(f"{comprobar[1][3]}")
-                self.ui3.ui_3.inputEdad.setText(f"{comprobar[1][1]}")
-                self.ui3.ui_3.inputEmail.setText(f"{comprobar[1][4]}")
-                self.ui3.ui_3.inputPassword.setText(f"{comprobar[1][5]}")
-                self.ui3.ui_3.inputUsuarioMarco.setText(f"{comprobar[1][2]}")
+                self.ui3.ui_3.inputNombre.setText("{}".format(comprobar[1][2]))
+                self.ui3.ui_3.inputApellidos.setText("{}".format(comprobar[1][3]))
+                self.ui3.ui_3.inputEdad.setText("{}".format(comprobar[1][1]))
+                self.ui3.ui_3.inputEmail.setText("{}".format(comprobar[1][4]))
+                self.ui3.ui_3.inputPassword.setText("{}".format(comprobar[1][5]))
+                self.ui3.ui_3.inputUsuarioMarco.setText("{}".format(comprobar[1][2]))
                 self.close()
                 self.ui3.show()
                 del self
@@ -213,9 +214,9 @@ class Iniciar(QtWidgets.QWidget):
 def main():
     cmd = QtWidgets.QApplication(argv)
 
-    base_de_datos = Path("login.db")
-
     clase1 = Iniciar()
+
+    base_de_datos = Path("login.db")
 
     if not base_de_datos.exists():
         QtWidgets.QMessageBox.information(QtWidgets.QWidget(), "Milnes", "\U0001f504" + " Configurando todo...")

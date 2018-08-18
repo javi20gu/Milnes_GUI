@@ -57,7 +57,7 @@ class Database:
         try:
             Sql.query("UPDATE login SET Email=? Where Email=? ", (nuevo_email, antiguo_email))
             return True
-        except sqlite3.IntegrityError as a:
+        except sqlite3.IntegrityError:
             QMessageBox.warning(QWidget(), "Milnes", f"Email ya existente: {nuevo_email}")
             return False
     @classmethod
@@ -71,5 +71,5 @@ class Database:
                                                              edad, email, password))
             return True
         except sqlite3.IntegrityError:
-            QMessageBox.warning(QWidget(), "Milnes", f"Email ya existente: {email}")
+            QMessageBox.warning(QWidget(), "Milnes", "Email ya existente: {}".format(email))
             return False
