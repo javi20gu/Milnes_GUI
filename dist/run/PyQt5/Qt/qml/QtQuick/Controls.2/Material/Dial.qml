@@ -34,10 +34,10 @@
 **
 ****************************************************************************/
 
-import QtQuick 2.10
-import QtQuick.Templates 2.3 as T
-import QtQuick.Controls.Material 2.3
-import QtQuick.Controls.Material.impl 2.3
+import QtQuick 2.11
+import QtQuick.Templates 2.4 as T
+import QtQuick.Controls.Material 2.4
+import QtQuick.Controls.Material.impl 2.4
 
 T.Dial {
     id: control
@@ -69,8 +69,8 @@ T.Dial {
                 origin.y: handle.height / 2
             }
         ]
-        implicitWidth: 14
-        implicitHeight: 14
+        implicitWidth: 10
+        implicitHeight: 10
 
         value: control.value
         handleHasFocus: control.visualFocus

@@ -34,12 +34,12 @@
 **
 ****************************************************************************/
 
-import QtQuick 2.10
-import QtQuick.Templates 2.3 as T
-import QtQuick.Controls 2.3
-import QtQuick.Controls.impl 2.3
-import QtQuick.Controls.Material 2.3
-import QtQuick.Controls.Material.impl 2.3
+import QtQuick 2.11
+import QtQuick.Templates 2.4 as T
+import QtQuick.Controls 2.4
+import QtQuick.Controls.impl 2.4
+import QtQuick.Controls.Material 2.4
+import QtQuick.Controls.Material.impl 2.4
 
 T.MenuItem {
     id: control
@@ -65,6 +65,7 @@ T.MenuItem {
         y: control.topPadding + (control.availableHeight - height) / 2
         visible: control.checkable
         control: control
+        checkState: control.checked ? Qt.Checked : Qt.Unchecked
     }
 
     arrow: ColorImage {

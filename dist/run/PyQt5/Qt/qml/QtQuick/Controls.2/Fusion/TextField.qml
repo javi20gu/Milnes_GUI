@@ -34,12 +34,12 @@
 **
 ****************************************************************************/
 
-import QtQuick 2.10
-import QtQuick.Templates 2.3 as T
-import QtQuick.Controls 2.3
-import QtQuick.Controls.impl 2.3
-import QtQuick.Controls.Fusion 2.3
-import QtQuick.Controls.Fusion.impl 2.3
+import QtQuick 2.11
+import QtQuick.Templates 2.4 as T
+import QtQuick.Controls 2.4
+import QtQuick.Controls.impl 2.4
+import QtQuick.Controls.Fusion 2.4
+import QtQuick.Controls.Fusion.impl 2.4
 
 T.TextField {
     id: control
@@ -68,7 +68,7 @@ T.TextField {
         opacity: 0.5
         text: control.placeholderText
         font: control.font
-        color: control.palette.text
+        color: control.color
         verticalAlignment: control.verticalAlignment
         visible: !control.length && !control.preeditText && (!control.activeFocus || control.horizontalAlignment !== Qt.AlignHCenter)
         elide: Text.ElideRight
